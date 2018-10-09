@@ -1,26 +1,56 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f;
-
+    [SerializeField] private float paddingX = 1f;
+    [SerializeField] private float paddingY = 1f;
+    [SerializeField] private float shootPeriod = 0.1f;
+    [SerializeField] private GameObject laserPrefab;
+    [SerializeField] private float laserSpeed = 15f;
 
     private float xMin;
     private float xMax;
     private float yMin;
     private float yMax;
 
-    [SerializeField] private float paddingX = 1f;
-    [SerializeField] private float paddingY = 1f;
+   Coroutine shootOnHoldCoroutine;
 
     void Start ()
 	{
 	    SetUpMoveBorders();
 	}
+
+    void Update ()
+	{
+	    Move();
+	    Shoot();
+	}
+
+    private void Shoot()
+    {
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            shootOnHoldCoroutine = StartCoroutine(ShootOnHold());
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopCoroutine(shootOnHoldCoroutine);
+        }
+    }
+
+    private void Move()
+    {
+        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+
+        var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax); 
+        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
+        transform.position = new Vector2(newXPos, newYPos);
+    }
 
     private void SetUpMoveBorders()
     {
@@ -32,18 +62,18 @@ public class Player : MonoBehaviour
         yMax = gameCamera.ViewportToScreenPoint(new Vector3(0, 0.0055f, 0)).y + paddingY;
     }
 
-    void Update ()
-	{
-	    Move();
-	}
-
-    private void Move()
+    private IEnumerator ShootOnHold()
     {
-        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        while (true)
+        {
+            GameObject laser = Instantiate(
+                laserPrefab,
+                transform.position,
+                Quaternion.identity) as GameObject;
+            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+            Destroy(laser, 1f);
 
-        var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax); 
-        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
-        transform.position = new Vector2(newXPos, newYPos);
+            yield return new WaitForSeconds(shootPeriod);
+        }
     }
 }
