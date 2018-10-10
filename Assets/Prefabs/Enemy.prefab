@@ -9,18 +9,18 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1236995929440194}
+  m_RootGameObject: {fileID: 1567754940426282}
   m_IsPrefabAsset: 1
---- !u!1 &1236995929440194
+--- !u!1 &1567754940426282
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4744503714185470}
-  - component: {fileID: 212030745025903172}
-  - component: {fileID: 114091711383191476}
+  - component: {fileID: 4227132744553350}
+  - component: {fileID: 212910066974286714}
+  - component: {fileID: 114769460097977290}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -28,40 +28,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4744503714185470
+--- !u!4 &4227132744553350
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1236995929440194}
+  m_GameObject: {fileID: 1567754940426282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 5.86, z: 0}
-  m_LocalScale: {x: 0.120498, y: 0.120498, z: 0.120498}
+  m_LocalPosition: {x: 5.03, y: 5.68, z: 0}
+  m_LocalScale: {x: 0.14025968, y: 0.14025968, z: 0.14025968}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114091711383191476
+--- !u!114 &114769460097977290
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1236995929440194}
+  m_GameObject: {fileID: 1567754940426282}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c1395efa98299b438171f2a861e2bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!212 &212030745025903172
+  waveConfig: {fileID: 11400000, guid: e97a479e1fd69a644801e1e02ef00508, type: 2}
+  wayPoints: []
+  enemyMoveSpeed: 0.1
+--- !u!212 &212910066974286714
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1236995929440194}
+  m_GameObject: {fileID: 1567754940426282}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
