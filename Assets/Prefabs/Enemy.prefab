@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1567754940426282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.03, y: 5.68, z: 0}
+  m_LocalPosition: {x: 4.97, y: 7.54, z: 0}
   m_LocalScale: {x: 0.14025968, y: 0.14025968, z: 0.14025968}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveConfig: {fileID: 11400000, guid: e97a479e1fd69a644801e1e02ef00508, type: 2}
   wayPoints: []
-  enemyMoveSpeed: 0.1
+  enemyMoveSpeed: 0.05
 --- !u!212 &212910066974286714
 SpriteRenderer:
   m_ObjectHideFlags: 1

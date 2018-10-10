@@ -11,7 +11,7 @@ public class WaveConfig : ScriptableObject
     [SerializeField] private float timeBetweenSpawn = 0.5f;
     [SerializeField] private float spawnRandomfactor = 0.3f;
     [SerializeField] private int numberOfEnemies = 5;
-    [SerializeField] private float moveSpeed = 0.1f;
+    [SerializeField] private float moveSpeed = 0.05f;
 
     public GameObject GetEnemyPrefab() { return enemyPrefab; }
 
