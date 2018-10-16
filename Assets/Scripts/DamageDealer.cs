@@ -9,5 +9,10 @@ public class DamageDealer : MonoBehaviour
 
     public int GetDamage() { return damage; }
 
-    public void Hit() { Destroy(gameObject); }
+    public void Hit()
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        Destroy(gameObject, 4f);
+    }
 }

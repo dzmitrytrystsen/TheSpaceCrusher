@@ -52,8 +52,8 @@ public class Player : MonoBehaviour
 
         if (health <= 0)
         {
-            GameOver();
             TriggerExplosion();
+            GameOver();
         }
 
         TriggerHit();

@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Enemy Stats")]
     [SerializeField] private float health = 300;
+    [SerializeField] private int scoreValue = 1;
+
+    [Header("War")]
     [SerializeField] public GameObject[] hitVFX;
     [SerializeField] public GameObject[] explosionVFX;
     [SerializeField] public AudioClip[] explosionSounds;
@@ -61,16 +65,16 @@ public class Enemy : MonoBehaviour
     {
         GameObject hit = Instantiate(hitVFX[Random.Range(0, hitVFX.Length)], transform.position, transform.rotation);
         Destroy(hit, 2f);
-
         AudioSource.PlayClipAtPoint(hitSounds[Random.Range(0, hitVFX.Length)], Camera.main.transform.position);
     }
 
     private void TriggerExplosion()
     {
+        FindObjectOfType<GameSession>().AddToScore(scoreValue);
+
         GameObject hit = Instantiate(explosionVFX[Random.Range(0, hitVFX.Length)], transform.position,
             transform.rotation);
         Destroy(hit, 2f);
-
         AudioSource.PlayClipAtPoint(explosionSounds[Random.Range(0, hitVFX.Length)], Camera.main.transform.position);
     }
 
