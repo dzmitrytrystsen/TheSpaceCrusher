@@ -3,34 +3,59 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private float health = 1000;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float paddingX = 1f;
     [SerializeField] private float paddingY = 1f;
     [SerializeField] private float shootPeriod = 0.1f;
     [SerializeField] private GameObject laserPrefab;
     [SerializeField] private float laserSpeed = 15f;
+    [SerializeField] public AudioClip[] laserSounds;
+    [SerializeField] public GameObject[] hitVFX;
+    [SerializeField] public GameObject explosionVFX;
+    [SerializeField] public AudioClip[] explosionSounds;
+    [SerializeField] public AudioClip[] hitSounds;
 
     private float xMin;
     private float xMax;
     private float yMin;
     private float yMax;
 
-   Coroutine shootOnHoldCoroutine;
+    //Cached
+    public AudioSource myAudioSource;
 
-    void Start ()
-	{
-	    SetUpMoveBorders();
-	}
+    Coroutine shootOnHoldCoroutine;
 
-    void Update ()
-	{
-	    Move();
-	    Shoot();
-	}
+    void Start()
+    {
+        myAudioSource = GetComponent<AudioSource>();
+        SetUpMoveBorders();
+    }
+
+    void Update()
+    {
+        Move();
+        Shoot();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+        if (!damageDealer) { return; }
+        damageDealer.Hit();
+        health = health - damageDealer.GetDamage();
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            TriggerExplosion();
+        }
+
+        TriggerHit();
+    }
 
     private void Shoot()
     {
-
         if (Input.GetButtonDown("Fire1"))
         {
             shootOnHoldCoroutine = StartCoroutine(ShootOnHold());
@@ -47,7 +72,7 @@ public class Player : MonoBehaviour
         var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
         var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
 
-        var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax); 
+        var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
         var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
         transform.position = new Vector2(newXPos, newYPos);
     }
@@ -72,8 +97,27 @@ public class Player : MonoBehaviour
                 Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
             Destroy(laser, 1f);
+            AudioClip clips = laserSounds[Random.Range(0, laserSounds.Length)];
+            myAudioSource.PlayOneShot(clips);
 
             yield return new WaitForSeconds(shootPeriod);
         }
+    }
+
+    private void TriggerHit()
+    {
+        GameObject hit = Instantiate(hitVFX[Random.Range(0, hitVFX.Length)], transform.position, transform.rotation);
+        Destroy(hit, 2f);
+
+        AudioSource.PlayClipAtPoint(hitSounds[Random.Range(0, hitVFX.Length)], Camera.main.transform.position);
+    }
+
+    private void TriggerExplosion()
+    {
+        GameObject hit = Instantiate(explosionVFX, transform.position,
+            transform.rotation);
+        Destroy(hit, 5f);
+
+        AudioSource.PlayClipAtPoint(explosionSounds[Random.Range(0, hitVFX.Length)], Camera.main.transform.position);
     }
 }

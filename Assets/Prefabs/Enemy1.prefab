@@ -52,7 +52,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -522,7 +522,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cceb1cf18fdc79b45a28f3cc5086c031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 300
+  hitVFX:
+  - {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 2}
+  - {fileID: 100002, guid: fc7f8379080d0a844ad699b91bfd56f0, type: 2}
+  - {fileID: 100002, guid: 3b1513bcb86426b4795879be6a128ed7, type: 2}
+  explosionVFX:
+  - {fileID: 100004, guid: b46890100828db6429ff69c322b45893, type: 2}
+  - {fileID: 100002, guid: 6890a03af913b874092fbb1e8337747d, type: 2}
+  - {fileID: 100006, guid: a49596ebf788acd4ab1281bffea444b1, type: 2}
+  - {fileID: 100008, guid: 7075bd5fe1480184695a32611c15da57, type: 2}
+  explosionSounds:
+  - {fileID: 8300000, guid: 4963da36072145141bdbca377e09c7e5, type: 3}
+  - {fileID: 8300000, guid: a4ad3c39b0d654543b02100c034d6864, type: 3}
+  - {fileID: 8300000, guid: e5d62bc0a9fc85246b2f1160ff1291a9, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 935196ecc6b898d43b20433a72dc1bdd, type: 3}
+  - {fileID: 8300000, guid: e0f1be9845d7c3541beef01522f21fe5, type: 3}
+  - {fileID: 8300000, guid: 1e79e51ce7627214abd3b1334ad3c3b1, type: 3}
+  enemyLaserPrefab: {fileID: 1482579300437058, guid: 70afbd795b450c34abcda43033f1b4b8,
+    type: 2}
+  enemyLaserSound: []
+  enemyLaserSpeed: 10
+  shootCounter: 0
+  minTimeBetweenShots: 0.5
+  maxTimeBetweenShots: 3
+  myAudioSource: {fileID: 0}
 --- !u!114 &114544494168952528
 MonoBehaviour:
   m_ObjectHideFlags: 1
