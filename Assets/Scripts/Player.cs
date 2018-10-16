@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -41,13 +42,17 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-        if (!damageDealer) { return; }
+        if (!damageDealer)
+        {
+            return;
+        }
+
         damageDealer.Hit();
         health = health - damageDealer.GetDamage();
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            GameOver();
             TriggerExplosion();
         }
 
@@ -119,5 +124,19 @@ public class Player : MonoBehaviour
         Destroy(hit, 5f);
 
         AudioSource.PlayClipAtPoint(explosionSounds[Random.Range(0, hitVFX.Length)], Camera.main.transform.position);
+    }
+
+    private void GameOver()
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<Collider2D>().enabled = false;
+
+        StartCoroutine(WaitForIt(3f));
+    }
+
+    IEnumerator WaitForIt(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(2);
     }
 }
