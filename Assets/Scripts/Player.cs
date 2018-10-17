@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float health = 1000;
+    [SerializeField] private int health = 1000;
+
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float paddingX = 1f;
     [SerializeField] private float paddingY = 1f;
@@ -56,7 +57,13 @@ public class Player : MonoBehaviour
             GameOver();
         }
 
+        GetHealth();
         TriggerHit();
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 
     private void Shoot()
@@ -96,9 +103,11 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
+            var laserPos = new Vector2(transform.position.x, transform.position.y + 1f);
+
             GameObject laser = Instantiate(
                 laserPrefab,
-                transform.position,
+                laserPos,
                 Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
             Destroy(laser, 1f);

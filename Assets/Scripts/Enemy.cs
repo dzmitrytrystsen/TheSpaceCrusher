@@ -80,12 +80,14 @@ public class Enemy : MonoBehaviour
 
     private void EnemyFire()
     {
+        var laserPos = new Vector2(transform.position.x, transform.position.y - 0.5f);
+
         GameObject enemyLaser = Instantiate(
             enemyLaserPrefab,
-            transform.position,
+            laserPos,
             Quaternion.identity) as GameObject;
         enemyLaser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -enemyLaserSpeed);
-        Destroy(enemyLaser, 1f);
+        Destroy(enemyLaser, 1.5f);
         AudioClip clips = enemyLaserSound[Random.Range(0, enemyLaserSound.Length)];
         myAudioSource.PlayOneShot(clips);
     }

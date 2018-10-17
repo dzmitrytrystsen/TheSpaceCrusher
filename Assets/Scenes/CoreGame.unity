@@ -592,6 +592,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1970940125967468, guid: 9c394a3b860e99e409c6356828c4d916, type: 2}
+      propertyPath: m_Name
+      value: MusicPlayer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c394a3b860e99e409c6356828c4d916, type: 2}
   m_IsPrefabAsset: 0
